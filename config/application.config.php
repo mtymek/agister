@@ -5,7 +5,12 @@ return array(
         'DoctrineModule',
         'DoctrineORMModule',
         'Application',
+        'ZF\ApiProblem',
+        'ZF\Hal',
+        'ZF\ContentNegotiation',
+        'ZF\Rest',
         'Agister\Core',
+        'Agister\Backend',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

@@ -9,14 +9,19 @@
     "homepage": "http://github.com/mtymek/agister/",
     "require": {
         "php": ">=5.3.3",
-        "zendframework/zendframework": "2.2.*",
+        "zendframework/zendframework": "2.3.*@dev",
         "doctrine/doctrine-module": "0.8.*@dev",
-        "doctrine/doctrine-orm-module": "0.8.*@dev"
+        "doctrine/doctrine-orm-module": "0.8.*@dev",
+        "zfcampus/zf-api-problem": "1.0.*@dev",
+        "zfcampus/zf-content-negotiation": "1.0.*@dev",
+        "zfcampus/zf-hal": "1.0.*@dev",
+        "zfcampus/zf-rest": "1.0.*@dev"
     },
     "autoload": {
         "psr-0": {
             "Application":"module/Application/src",
-            "Agister\\Core":"module/Agister/Core/src"
+            "Agister\\Core":"module/Agister/Core/src",
+            "Agister\\Backend":"module/Agister/Backend/src"
         }
     }
 }

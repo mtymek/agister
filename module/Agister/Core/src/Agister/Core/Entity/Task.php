@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Agister\Core\Repository\Task")
  * @ORM\Table(name="task")
  */
-class Task
+class Task implements \JsonSerializable
 {
 
     /**
@@ -163,4 +163,41 @@ class Task
         return $this->title;
     }
 
+    /**
+     * @param boolean $active
+     * @return self
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+        return $this;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.4.0)<br/>
+     * Specify data which should be serialized to JSON
+     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * which is a value of any type other than a resource.
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'active' => $this->active,
+            'title' => $this->title,
+            'description' => $this->description,
+            'startsAt' => $this->startsAt,
+            'finishesFrom' => $this->finishesFrom,
+            'finishesTo' => $this->finishesTo,
+        );
+    }
 }

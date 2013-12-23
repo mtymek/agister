@@ -1,12 +1,12 @@
 {
-    "name": "zendframework/skeleton-application",
-    "description": "Skeleton Application for ZF2",
-    "license": "BSD-3-Clause",
+    "name": "mtymek/agister",
+    "description": "Simple TODO manager application",
+    "license": "BSD-2-Clause",
     "keywords": [
-        "framework",
-        "zf2"
+        "agister",
+        "todo"
     ],
-    "homepage": "http://framework.zend.com/",
+    "homepage": "http://github.com/mtymek/agister/",
     "require": {
         "php": ">=5.3.3",
         "zendframework/zendframework": "2.2.*",

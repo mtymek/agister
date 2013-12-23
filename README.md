@@ -27,8 +27,8 @@ Goals (new elements may be added during coding):
 - [ ] create control module that exposes services and entities and operates on data in JSON format
     - [ ] write unit tests
 - [ ] create frontend module (with help of AssetManager module)
-    - [ ] use Bower for managing front-end packages
+    - [X] use Bower for managing front-end packages
     - [ ] allow adding new tasks
     - [ ] allow marking tasks as "completed"
-    - [ ] create simple timeline showing current tasks, something reassembling Liquid Planner's chart
+    - [ ] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
 - [ ] try not to drink too much coke during development

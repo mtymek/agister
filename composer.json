@@ -16,7 +16,7 @@
     "autoload": {
         "psr-0": {
             "Application":"module/Application/src",
-            "AGIster\\Core":"module/AGIster/Core/src"
+            "Agister\\Core":"module/Agister/Core/src"
         }
     }
 }

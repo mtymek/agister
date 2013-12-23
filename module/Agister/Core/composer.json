@@ -1,0 +1,14 @@
+{
+    "name": "mtymek/agister-core",
+    "description": "Core library for AGIster",
+    "license": "BSD-2-Clause",
+    "authors": [
+        {
+            "name": "Mateusz Tymek",
+            "email": "mtymek@gmail.com"
+        }
+    ],
+    "require": {
+
+    }
+}

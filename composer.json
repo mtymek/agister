@@ -12,5 +12,11 @@
         "zendframework/zendframework": "2.2.*",
         "doctrine/doctrine-module": "0.8.*@dev",
         "doctrine/doctrine-orm-module": "0.8.*@dev"
+    },
+    "autoload": {
+        "psr-0": {
+            "Application":"module/Application/src",
+            "AGIster\\Core":"module/AGIster/Core/src"
+        }
     }
 }

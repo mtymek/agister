@@ -20,7 +20,7 @@ Technologies:
 
 Goals (new elements may be added during coding):
 
-- [ ] create simple skeleton app based on ZF2 and Doctrine
+- [X] create simple skeleton app based on ZF2 and Doctrine
 - [ ] create backend module that defines entities used by app and services for accessing them
     - [ ] define internal data structures: tasks, tags, etc. No need to take care of users for now.
     - [ ] write unit tests

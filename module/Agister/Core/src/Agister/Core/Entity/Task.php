@@ -59,6 +59,13 @@ class Task
     protected $finishesTo;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean")
+     */
+    protected $active = 1;
+
+    /**
      * @return int
      */
     public function getId()

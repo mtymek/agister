@@ -25,4 +25,8 @@ class Task extends EntityRepository implements TaskInterface
         $this->_em->flush($task);
     }
 
+    public function findAllActive()
+    {
+        return $this->findBy(array('active' => 1), array('id' => 'ASC'));
+    }
 }

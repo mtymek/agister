@@ -32,4 +32,9 @@ class Task
         $this->repository->save($task);
     }
 
+    public function fetchActiveTasks()
+    {
+        $this->repository->findAllActive();
+    }
+
 }

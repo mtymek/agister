@@ -9,4 +9,6 @@ interface TaskInterface
 
     public function save(Entity\Task $task);
 
+    public function findAllActive();
+
 }

@@ -25,6 +25,7 @@ Goals (new elements may be added during coding):
     - [ ] define internal data structures: tasks, tags, etc. No need to take care of users for now.
     - [ ] write unit tests
 - [ ] create control module that exposes services and entities and operates on data in JSON format
+    - [X] use ZF-Rest module for API
     - [ ] write unit tests
 - [ ] create frontend module (with help of AssetManager module)
     - [X] use Bower for managing front-end packages

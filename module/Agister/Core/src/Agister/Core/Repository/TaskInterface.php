@@ -11,4 +11,6 @@ interface TaskInterface
 
     public function findAllActive();
 
+    public function findById($id);
+
 }

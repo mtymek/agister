@@ -73,6 +73,14 @@ class Task implements \JsonSerializable
         return $this->id;
     }
 
+    public function __construct()
+    {
+        $this->startsAt = new DateTime();
+        $this->finishesFrom = new DateTime();
+        $this->finishesTo = new DateTime();
+    }
+
+
     /**
      * @param string $description
      * @return self

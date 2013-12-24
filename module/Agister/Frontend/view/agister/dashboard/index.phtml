@@ -1,1 +1,20 @@
+<?php
+
+$this->headScript()->appendFile($this->basePath('js/agister.js'));
+
+?>
+<div ng-app="agister-frontend" ng-controller="AgisterDashboard">
+
+    <ul>
+        <li ng-repeat="task in tasks">
+            <div class="title">{{ task.title }}</div>
+            <div class="description">
+                {{ task.description }}
+            </div>
+        </li>
+
+    </ul>
+
+</div>
+
 index.phtml file

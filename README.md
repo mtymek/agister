@@ -29,6 +29,7 @@ Goals (new elements may be added during coding):
     - [ ] write unit tests
 - [ ] create frontend module (with help of AssetManager module)
     - [X] use Bower for managing front-end packages
+    - [X] use Angular.js as frontend engine
     - [ ] allow adding new tasks
     - [ ] allow marking tasks as "completed"
     - [ ] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline

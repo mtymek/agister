@@ -22,12 +22,12 @@
 
         <?php echo $this->headScript()
             ->prependFile($this->basePath('vendor/bootstrap/dist/js/bootstrap.min.js'))
+            ->prependFile($this->basePath('vendor/angular/angular.js'))
             ->prependFile($this->basePath('vendor/jquery/jquery.min.js'))
         ; ?>
 
     </head>
-    <body>
-
+    <body  data-base-path="<?php echo $this->basePath() ?>">
         <div class="container">
             <?php echo $this->content; ?>
             <hr>

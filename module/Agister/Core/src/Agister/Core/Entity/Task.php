@@ -2,7 +2,6 @@
 
 namespace Agister\Core\Entity;
 
-
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -80,14 +79,14 @@ class Task implements \JsonSerializable
         $this->finishesTo = new DateTime();
     }
 
-
     /**
-     * @param string $description
+     * @param  string $description
      * @return self
      */
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
 
@@ -100,12 +99,13 @@ class Task implements \JsonSerializable
     }
 
     /**
-     * @param \DateTime $finishesFrom
+     * @param  \DateTime $finishesFrom
      * @return self
      */
     public function setFinishesFrom($finishesFrom)
     {
         $this->finishesFrom = $finishesFrom;
+
         return $this;
     }
 
@@ -118,12 +118,13 @@ class Task implements \JsonSerializable
     }
 
     /**
-     * @param \DateTime $finishesTo
+     * @param  \DateTime $finishesTo
      * @return self
      */
     public function setFinishesTo($finishesTo)
     {
         $this->finishesTo = $finishesTo;
+
         return $this;
     }
 
@@ -136,12 +137,13 @@ class Task implements \JsonSerializable
     }
 
     /**
-     * @param \DateTime $startsAt
+     * @param  \DateTime $startsAt
      * @return self
      */
     public function setStartsAt($startsAt)
     {
         $this->startsAt = $startsAt;
+
         return $this;
     }
 
@@ -154,12 +156,13 @@ class Task implements \JsonSerializable
     }
 
     /**
-     * @param string $title
+     * @param  string $title
      * @return self
      */
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -172,12 +175,13 @@ class Task implements \JsonSerializable
     }
 
     /**
-     * @param boolean $active
+     * @param  boolean $active
      * @return self
      */
     public function setActive($active)
     {
         $this->active = $active;
+
         return $this;
     }
 
@@ -194,7 +198,7 @@ class Task implements \JsonSerializable
      * Specify data which should be serialized to JSON
      * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
      * @return mixed data which can be serialized by <b>json_encode</b>,
-     * which is a value of any type other than a resource.
+     *               which is a value of any type other than a resource.
      */
     public function jsonSerialize()
     {

@@ -10,4 +10,3 @@
  * The original Module.php lives in 'src' directory in order to respect PSR-0
  */
 require_once __DIR__ . '/src/Agister/Core/Module.php';
-

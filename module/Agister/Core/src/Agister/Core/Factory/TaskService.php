@@ -12,7 +12,7 @@ class TaskService implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return Task
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
@@ -20,6 +20,7 @@ class TaskService implements FactoryInterface
         /** @var \Doctrine\ORM\EntityManager $entityManager */
         $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
         $service = new Task($entityManager->getRepository('Agister\Core\Entity\Task'));
+
         return $service;
     }
 }

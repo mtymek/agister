@@ -14,7 +14,7 @@ class TaskResource implements FactoryInterface
     /**
      * Create service
      *
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param  ServiceLocatorInterface $serviceLocator
      * @return mixed
      */
     public function createService(ServiceLocatorInterface $serviceLocator)
@@ -26,6 +26,7 @@ class TaskResource implements FactoryInterface
             new InputFilter\Task(),
             new DoctrineObject($entityManager)
         );
+
         return $service;
     }
 }

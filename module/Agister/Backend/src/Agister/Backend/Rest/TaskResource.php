@@ -38,7 +38,7 @@ class TaskResource extends AbstractResourceListener
     public function create($data)
     {
         $filter = $this->inputFilter;
-        $filter->setData((array)$data);
+        $filter->setData((array) $data);
         if (!$filter->isValid()) {
             print_r($filter->getMessages());
             throw new \Exception("Invalid data!");
@@ -46,6 +46,7 @@ class TaskResource extends AbstractResourceListener
         $entity = new Task();
         $this->hydrator->hydrate($filter->getValues(), $entity);
         $this->repository->save($entity);
+
         return $this->fetch($entity->getId());
     }
 
@@ -62,6 +63,7 @@ class TaskResource extends AbstractResourceListener
         foreach ($collection as $entity) {
             $ret[] = $entity->jsonSerialize();
         }
+
         return $ret;
     }
 }

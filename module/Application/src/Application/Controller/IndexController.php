@@ -2,7 +2,6 @@
 
 namespace Application\Controller;
 
-use Agister\Core\Entity\Task;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 

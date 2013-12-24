@@ -40,8 +40,4 @@ return array(
             'route_name'              => 'api/tasks',
         ),
     ),
-    // Just for now...s
-    'view_manager' => array(
-//        'display_exceptions' => true,
-    )
 );

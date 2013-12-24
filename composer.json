@@ -21,7 +21,8 @@
         "psr-0": {
             "Application":"module/Application/src",
             "Agister\\Core":"module/Agister/Core/src",
-            "Agister\\Backend":"module/Agister/Backend/src"
+            "Agister\\Backend":"module/Agister/Backend/src",
+            "Agister\\Frontend":"module/Agister/Frontend/src"
         }
     }
 }

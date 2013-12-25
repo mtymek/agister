@@ -77,4 +77,11 @@ class Timeline
         return $this->tasks;
     }
 
+    /**
+     * @return int
+     */
+    public function getLength()
+    {
+        return $this->dateTo->getTimestamp() - $this->dateFrom->getTimestamp();
+    }
 }

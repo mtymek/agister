@@ -1,20 +1,37 @@
 <?php
 
 $this->headScript()->appendFile($this->basePath('js/agister.js'));
+$this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
 
 ?>
 <div ng-app="agister-frontend" ng-controller="AgisterDashboard">
 
-    <ul>
-        <li ng-repeat="task in tasks">
-            <div class="title">{{ task.title }}</div>
-            <div class="description">
-                {{ task.description }}
-            </div>
-        </li>
-
-    </ul>
+    <table class="timeline-table">
+        <tr>
+            <td class="title">
+                Task
+            </td>
+            <td>
+                <div class="legend-wrapper" >
+                    <div class="date-marker" style="left: {{ date.seconds * timeline.scale }}%" ng-repeat="date in timeline.dateMarkers">
+                        {{ date.date.getDate() }} / {{ date.date.getMonth()+1 }}
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr ng-repeat="task in timeline.tasks">
+            <td class="title">
+                {{ task.title }}
+                ({{ task.startsAt.date }})
+            </td>
+            <td class="timeline">
+                <div class="task-container">
+                    <div class="task"
+                         style="margin-left: {{ task.scaledStart }}%; width: {{ task.scaledWidth }}%">
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
 
 </div>
-
-index.phtml file

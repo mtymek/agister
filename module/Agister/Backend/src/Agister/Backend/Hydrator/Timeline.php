@@ -38,6 +38,8 @@ class Timeline
             'tasks' => $tasks,
             'dateFrom' => $timeline->getDateFrom()->format('Y-m-d H:i:s'),
             'dateTo' => $timeline->getDateTo()->format('Y-m-d H:i:s'),
+            'length' => $timeline->getLength(),
+            'scale' => 100/$timeline->getLength(),
         );
     }
 

@@ -57,13 +57,11 @@ class TaskResource extends AbstractResourceListener
 
     public function fetchAll($data = array())
     {
-        // TODO: do something with this, use hydrator or whatever
         $collection = $this->repository->findAll();
         $ret = array();
         foreach ($collection as $entity) {
-            $ret[] = $entity->jsonSerialize();
+            $ret[] = $this->hydrator->extract($entity);
         }
-
         return $ret;
     }
 }

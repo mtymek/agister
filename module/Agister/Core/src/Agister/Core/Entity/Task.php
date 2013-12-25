@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Agister\Core\Repository\Task")
  * @ORM\Table(name="task")
  */
-class Task implements \JsonSerializable
+class Task
 {
 
     /**
@@ -44,18 +44,18 @@ class Task implements \JsonSerializable
     protected $startsAt;
 
     /**
-     * @var DateTime
+     * @var int
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
-    protected $finishesFrom;
+    protected $hoursMin;
 
     /**
-     * @var DateTime
+     * @var int
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="integer")
      */
-    protected $finishesTo;
+    protected $hoursMax;
 
     /**
      * @var boolean
@@ -75,8 +75,8 @@ class Task implements \JsonSerializable
     public function __construct()
     {
         $this->startsAt = new DateTime();
-        $this->finishesFrom = new DateTime();
-        $this->finishesTo = new DateTime();
+        $this->hoursMin = 1;
+        $this->hoursMax = 1;
     }
 
     /**
@@ -99,41 +99,39 @@ class Task implements \JsonSerializable
     }
 
     /**
-     * @param  \DateTime $finishesFrom
+     * @param int $hoursMax
      * @return self
      */
-    public function setFinishesFrom($finishesFrom)
+    public function setHoursMax($hoursMax)
     {
-        $this->finishesFrom = $finishesFrom;
-
+        $this->hoursMax = $hoursMax;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return int
      */
-    public function getFinishesFrom()
+    public function getHoursMax()
     {
-        return $this->finishesFrom;
+        return $this->hoursMax;
     }
 
     /**
-     * @param  \DateTime $finishesTo
+     * @param int $hoursMin
      * @return self
      */
-    public function setFinishesTo($finishesTo)
+    public function setHoursMin($hoursMin)
     {
-        $this->finishesTo = $finishesTo;
-
+        $this->hoursMin = $hoursMin;
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return int
      */
-    public function getFinishesTo()
+    public function getHoursMin()
     {
-        return $this->finishesTo;
+        return $this->hoursMin;
     }
 
     /**
@@ -193,23 +191,4 @@ class Task implements \JsonSerializable
         return $this->active;
     }
 
-    /**
-     * (PHP 5 &gt;= 5.4.0)<br/>
-     * Specify data which should be serialized to JSON
-     * @link http://php.net/manual/en/jsonserializable.jsonserialize.php
-     * @return mixed data which can be serialized by <b>json_encode</b>,
-     *               which is a value of any type other than a resource.
-     */
-    public function jsonSerialize()
-    {
-        return array(
-            'id' => $this->id,
-            'active' => $this->active,
-            'title' => $this->title,
-            'description' => $this->description,
-            'startsAt' => $this->startsAt,
-            'finishesFrom' => $this->finishesFrom,
-            'finishesTo' => $this->finishesTo,
-        );
-    }
 }

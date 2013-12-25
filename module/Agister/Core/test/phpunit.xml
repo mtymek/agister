@@ -1,0 +1,7 @@
+<phpunit bootstrap="./Bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="Agister Core Module Tests">
+            <directory>./AgisterTest</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

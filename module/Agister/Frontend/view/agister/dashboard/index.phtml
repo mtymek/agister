@@ -12,8 +12,10 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                 Task
             </td>
             <td>
-                <div class="legend-wrapper" >
-                    <div class="date-marker" style="left: {{ date.seconds * timeline.scale }}%" ng-repeat="date in timeline.dateMarkers">
+                <div class="legend-wrapper">
+                    <div class="date-marker"
+                         style="left: {{ date.seconds * timeline.scale*0.95 }}%"
+                         ng-repeat="date in timeline.dateMarkers">
                         {{ date.date.getDate() }} / {{ date.date.getMonth()+1 }}
                     </div>
                 </div>

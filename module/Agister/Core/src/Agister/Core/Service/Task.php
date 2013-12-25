@@ -61,17 +61,18 @@ class Task
 
         // normalize dateFrom - reset time and ensure it is Monday
         $dateFrom->setTime(0, 0, 0);
-        $dateFrom->setISODate($dateFrom->format('Y'), $dateFrom->format('W'), 1);
+        $dateFrom->sub(new DateInterval('P' . ($dateFrom->format('w')?$dateFrom->format('w')-1:6) . 'D'));
 
-        // normalize dateTo - reset time and ensure it starts with Monday
+        // normalize dateTo - reset time and ensure it starts on next Monday after $dateTo
         $dateTo->setTime(1, 0, 0);
-        // it should wrap for last week of the year
-        $dateTo->setISODate($dateTo->format('Y'), $dateTo->format('W')+1, 1);
+        $dateTo->add(new DateInterval('P7D'));
+        $dateTo->sub(new DateInterval('P' . ($dateTo->format('w')?$dateTo->format('w')-1:6) . 'D'));
 
         $timeline = new Entity\Timeline();
         $timeline->setTasks($tasks);
         $timeline->setDateFrom($dateFrom);
         $timeline->setDateTo($dateTo);
+
         return $timeline;
     }
 

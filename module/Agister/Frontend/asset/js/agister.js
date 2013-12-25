@@ -26,9 +26,11 @@ module.controller('AgisterDashboard', ['$scope', '$http', function ($scope, $htt
         // date markers
         var dateMarkers = [];
         for (var i = dateFrom.getTime(); i < dateTo.getTime(); i += 1000 * 3600 * 24) {
+            var d = new Date();
+            d.setTime(i);
             dateMarkers.push({
                 "seconds": Math.round((i - dateFrom.getTime()) / 1000),
-                "date": new Date(i)
+                "date": d
             });
         }
 

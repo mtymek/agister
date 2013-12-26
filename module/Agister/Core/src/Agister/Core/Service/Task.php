@@ -25,18 +25,18 @@ class Task
     }
 
     /**
-     * Save task
-     *
-     * @param Entity\Task $task
+     * Create new task
+     * @return Entity\Task
      */
-    public function save(Entity\Task $task)
+    public function create()
     {
-        $this->repository->save($task);
+        $task = new Entity\Task();
+        return $task;
     }
 
-    public function fetchActiveTasks()
+    public function allocate(Entity\Task $task)
     {
-        $this->repository->findAllActive();
+        $task->setStartsAt($this->repository->findGapForNewTask($task->getHoursMax()));
     }
 
     /**

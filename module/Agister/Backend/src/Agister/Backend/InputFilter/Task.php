@@ -23,30 +23,32 @@ class Task extends InputFilter
         $this->add(
             array(
                 'name' => 'description',
+                'required' => false,
+                'value' => ''
             )
         );
         $this->add(
             array(
-                'name' => 'active',
+                'name' => 'hoursMin',
+                'required' => true,
                 'filters' => array(
                     array(
-                        'name' => 'boolean'
+                        'name' => 'int'
                     )
                 )
             )
         );
-
-        /*$this->add(
+        $this->add(
             array(
-                'name' => 'startsAt',
+                'name' => 'hoursMax',
                 'required' => true,
-                'validators' => array(
+                'filters' => array(
                     array(
-                        'name' => 'datetime'
+                        'name' => 'int'
                     )
-                ),
+                )
             )
-        );*/
+        );
     }
 
 }

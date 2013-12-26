@@ -22,6 +22,7 @@ class TaskResource implements FactoryInterface
         /** @var \Doctrine\ORM\EntityManager $entityManager */
         $entityManager = $serviceLocator->get('doctrine.entitymanager.orm_default');
         $service = new RestTaskResource(
+            $serviceLocator->get('Agister\Core\Service\Task'),
             $entityManager->getRepository('Agister\Core\Entity\Task'),
             new InputFilter\Task(),
             new DoctrineObject($entityManager)

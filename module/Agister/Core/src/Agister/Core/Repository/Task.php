@@ -2,6 +2,7 @@
 
 namespace Agister\Core\Repository;
 
+use DateTime;
 use Doctrine\ORM\EntityRepository;
 use Agister\Core\Entity;
 
@@ -25,13 +26,88 @@ class Task extends EntityRepository implements TaskInterface
         $this->_em->flush($task);
     }
 
+    /**
+     * Find all active tasks
+     * @return array
+     */
     public function findAllActive()
     {
         return $this->findBy(array('active' => 1), array('id' => 'ASC'));
     }
 
+    /**
+     * Find single task by ID
+     *
+     * @param $id
+     * @return null|object
+     */
     public function findById($id)
     {
         return $this->find($id);
     }
+
+    /**
+     * Find when new task should start
+     *
+     * @param  int $hoursToAllocate
+     * @return DateTime
+     */
+    public function findGapForNewTask($hoursToAllocate)
+    {
+        $query = "
+SELECT MAX(ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR))
+FROM task t1
+        ";
+        $dbh = $this->getEntityManager()->getConnection()->getWrappedConnection();
+        $stmt = $dbh->prepare($query);
+        $stmt->execute();
+        $value = $stmt->fetchColumn();
+        if ($value) {
+            return new DateTime($value);
+        } else {
+            return new DateTime();
+        }
+    }
+
+    /**
+     * Some ideas for allocating tasks in gaps (not used right now)
+     *
+     * @param $minHours
+     * @return DateTime
+     */
+    private function _findGapForNewTask($minHours)
+    {
+        // search for gap at the beginning
+        $gapFinderQuery = "
+SELECT t1.startsAt
+FROM task t1
+LEFT JOIN task t2 ON ADDDATE(t2.startsAt, INTERVAL t2.hoursMax HOUR) <= t1.startsAt
+WHERE
+    t1.startsAt > NOW()
+    AND t2.id IS NULL
+    AND TIMEDIFF(t1.startsAt, NOW()) > :minHours
+        ";
+
+        // search for gaps
+        $gapFinderQuery = "
+SELECT ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR) AS cc
+FROM task t1
+    INNER JOIN task t2 ON ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR) <= t2.startsAt
+GROUP BY cc
+HAVING
+    TIMEDIFF(MIN(t2.startsAt), cc) > :minHours
+LIMIT 1
+    ";
+        $dbh = $this->getEntityManager()->getConnection()->getWrappedConnection();
+        $stmt = $dbh->prepare($gapFinderQuery);
+        $stmt->execute(array(
+                'minHours' => $minHours . ':00:00'
+            ));
+        $gap = $stmt->fetchColumn();
+
+        if ($gap) {
+            return new DateTime($gap);
+        }
+    }
+
 }

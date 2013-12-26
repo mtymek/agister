@@ -14,7 +14,7 @@ return array(
     ),
     'router' => array(
         'routes' => array(
-            'agister-backend' => array(
+            'dashboard' => array(
                 'type' => 'Segment',
                 'options' => array(
                     'route' => '/dashboard',

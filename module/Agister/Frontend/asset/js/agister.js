@@ -4,10 +4,13 @@
 
 'use strict';
 
-var module = angular.module('agister-frontend', []);
+var agisterModule = angular.module('agister', []);
 
+agisterModule.controller('AgisterCommonController', ['$scope', function ($scope) {
+    $scope.addTaskFormHidden = true;
+}]);
 
-module.controller('AgisterDashboard', ['$scope', '$http', function ($scope, $http) {
+agisterModule.controller('AgisterDashboardController', ['$scope', '$http', function ($scope, $http) {
     var basePathHelper = function(url) {
         var basePath = angular.element('body').data('base-path');
         return basePath.replace(/\/$/, '') + '/' + url.replace(/^\//, '');

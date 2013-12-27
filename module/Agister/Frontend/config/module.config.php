@@ -9,7 +9,11 @@ return array(
         ),
     ),
     'service_manager' => array(
+        'invokables' => array(
+            'Agister\Frontend\Form\AddTask' => 'Agister\Frontend\Form\AddTask',
+        ),
         'factories' => array(
+
         ),
     ),
     'router' => array(
@@ -40,5 +44,10 @@ return array(
         ),
         // Just for now...
         'display_exceptions' => true,
+    ),
+    'view_helpers' => array(
+        'factories' => array(
+            'addTaskForm' => 'Agister\Frontend\Factory\AddTaskFormViewHelperFactory'
+        )
     ),
 );

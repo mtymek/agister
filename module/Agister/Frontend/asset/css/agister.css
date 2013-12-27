@@ -17,6 +17,10 @@
     background-clip: padding-box;
 }
 
+.add-task-form {
+    padding: 15px;
+}
+
 .timeline-table {
     width: 100%;
 }

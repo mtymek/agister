@@ -1,21 +1,25 @@
 <div class="add-task-form">
 
     <form class="form-horizontal" role="form">
-
         <div class="form-group">
             <?php echo $this->formLabel($this->form->get('hours_max')) ?>
             <div class="col-sm-4">
-                <?php echo $this->formText($this->form->get('hours_max')) ?>
+                <?php echo $this->formElement($this->form->get('hours_max')) ?>
             </div>
         </div>
 
         <div class="form-group">
             <?php echo $this->formLabel($this->form->get('description')) ?>
-            <div class="col-sm-4">
-                <?php echo $this->formTextarea($this->form->get('description')) ?>
+            <div class="col-sm-8">
+                <?php echo $this->formElement($this->form->get('description')) ?>
             </div>
         </div>
 
+        <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-10">
+                <?php echo $this->formElement($this->form->get('add')) ?>
+            </div>
+        </div>
     </form>
 
 </div>

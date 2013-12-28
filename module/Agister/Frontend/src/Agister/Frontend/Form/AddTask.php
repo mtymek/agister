@@ -16,7 +16,10 @@ class AddTask extends Form
                 'name' => 'hours_max',
                 'type' => 'text',
                 'options' => array(
-                    'label' => 'Estimated time (hours)'
+                    'label' => 'Est. time',
+                    'label_attributes' => array(
+                        'class' => 'col-sm-3 control-label'
+                    ),
                 ),
                 'attributes' => array(
                     'class' => 'form-control'
@@ -29,7 +32,14 @@ class AddTask extends Form
                 'name' => 'description',
                 'type' => 'textarea',
                 'options' => array(
-                    'label' => 'Details'
+                    'label' => 'Details',
+                    'label_attributes' => array(
+                        'class' => 'col-sm-3 control-label'
+                    ),
+                ),
+                'attributes' => array(
+                    'class' => 'form-control',
+                    'rows' => 5
                 ),
             )
         );
@@ -39,7 +49,8 @@ class AddTask extends Form
                 'name' => 'add',
                 'type' => 'submit',
                 'attributes' => array(
-                    'value' => 'Add'
+                    'value' => 'Add',
+                    'class' => 'btn btn-primary'
                 ),
             )
         );

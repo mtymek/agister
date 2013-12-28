@@ -4,17 +4,33 @@
 
 'use strict';
 
+var basePathHelper = function(url) {
+    var basePath = angular.element('body').data('base-path');
+    return basePath.replace(/\/$/, '') + '/' + url.replace(/^\//, '');
+};
+
 var agisterModule = angular.module('agister', []);
 
-agisterModule.controller('AgisterCommonController', ['$scope', function ($scope) {
+agisterModule.controller('AgisterCommonController', ['$scope', '$http', function ($scope, $http) {
     $scope.addTaskFormHidden = true;
+
+    var task = {
+        "title": "",
+        "hoursMin": 1,
+        "hoursMax": 1,
+        "description": ""
+    };
+
+    $scope.newTask = angular.copy($task);
+
+    $scope.addTask = function () {
+        $scope.newTask.hoursMin = $scope.newTask.hoursMax;
+        $http.post(basePathHelper('/api/tasks'), $scope.newTask);
+    }
+
 }]);
 
 agisterModule.controller('AgisterDashboardController', ['$scope', '$http', function ($scope, $http) {
-    var basePathHelper = function(url) {
-        var basePath = angular.element('body').data('base-path');
-        return basePath.replace(/\/$/, '') + '/' + url.replace(/^\//, '');
-    };
 
     $http.get(basePathHelper('/api/timeline/1')).success(function (data) {
         var dateFrom = new Date(data.dateFrom);

@@ -6,6 +6,8 @@ use Agister\Core\Service;
 use Agister\Core\Repository;
 use Agister\Backend\InputFilter;
 use Agister\Backend\Hydrator;
+use DateInterval;
+use DateTime;
 use ZF\Rest\AbstractResourceListener;
 
 class TimelineResource extends AbstractResourceListener
@@ -38,7 +40,19 @@ class TimelineResource extends AbstractResourceListener
 
     public function fetch($id)
     {
-        $tasks = $this->repository->findAll();
+        $dateFrom = $this->getEvent()->getQueryParam('dateFrom');
+
+        if ($dateFrom) {
+            $dateFrom = new DateTime($dateFrom);
+        } else {
+            $dateFrom = new DateTime();
+        }
+
+        // normalize date from
+        $dateFrom->setTime(0, 0, 0);
+        $dateFrom->sub(new DateInterval('P' . ($dateFrom->format('w')?$dateFrom->format('w')-1:6) . 'D'));
+
+        $tasks = $this->repository->findAllFromDate($dateFrom);
         $timeline = $this->taskService->createTimeline($tasks);
         return $this->hydrator->extract($timeline);
     }

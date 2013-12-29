@@ -26,6 +26,14 @@ interface TaskInterface
     public function findAll();
 
     /**
+     * Find all tasks that end after dateFrom
+     *
+     * @param  DateTime $dateFrom
+     * @return Entity\Task[]
+     */
+    public function findAllFromDate(DateTime $dateFrom);
+
+    /**
      * Find when new task should start
      *
      * @param  int $hoursToAllocate

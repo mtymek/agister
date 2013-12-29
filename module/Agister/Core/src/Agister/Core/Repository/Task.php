@@ -5,6 +5,8 @@ namespace Agister\Core\Repository;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
 use Agister\Core\Entity;
+use Doctrine\ORM\Query\ResultSetMapping;
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
  * Task
@@ -33,6 +35,25 @@ class Task extends EntityRepository implements TaskInterface
     public function findAllActive()
     {
         return $this->findBy(array('active' => 1), array('id' => 'ASC'));
+    }
+
+    /**
+     * Find all tasks that end after dateFrom
+     *
+     * @param  DateTime $dateFrom
+     * @return Entity\Task[]
+     */
+    public function findAllFromDate(DateTime $dateFrom)
+    {
+        $query = "SELECT * FROM task t WHERE ADDDATE(t.startsAt, INTERVAL t.hoursMax HOUR) >= :dateFrom";
+
+        $rsm = new ResultSetMappingBuilder($this->_em);
+        $rsm->addRootEntityFromClassMetadata('Agister\Core\Entity\Task', 't');
+
+        $query = $this->_em->createNativeQuery($query, $rsm);
+        $query->setParameter('dateFrom', $dateFrom->format('Y-m-d H:i:s'));
+
+        return $query->getResult();
     }
 
     /**

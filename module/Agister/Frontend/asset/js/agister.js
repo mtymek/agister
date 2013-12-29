@@ -81,12 +81,20 @@ agisterModule.controller('AgisterDashboardController',
 
                 $scope.taskDetailsVisible = true;
                 $scope.currentTask =  {
+                    "id": currentTask.id,
                     "title": currentTask.title,
                     "details": currentTask.details,
                     "startsAt": $filter('date')(startsAt, "yyyy-MM-dd H:mm"),
                     "finishesAt": $filter('date')(finishesAt, "yyyy-MM-dd H:mm")
                 };
             });
+        }
+
+        $scope.deleteTask = function (id) {
+            $http.delete(basePathHelper('/api/tasks/' + id))
+                .success(function () {
+                    $agisterTimeline.loadInto($scope);
+                });
         }
 
         $agisterTimeline.loadInto($scope);

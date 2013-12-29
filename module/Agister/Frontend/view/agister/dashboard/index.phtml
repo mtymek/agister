@@ -17,7 +17,7 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                         <div class="date-marker"
                              style="left: {{ date.seconds * timeline.scale*0.95 }}%"
                              ng-repeat="date in timeline.dateMarkers">
-                            {{ date.date.getDate() }} / {{ date.date.getMonth()+1 }}
+                            {{ date.date.getDate() }} / {{ date.edate.getMonth()+1 }}
                         </div>
                     </div>
                 </td>
@@ -50,11 +50,11 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
             <dd ng-show="!currentTask.details"><em>no details are available</em></dd>
         </dl>
 
-        <button type="button" class="btn btn-success">
+        <button type="button" class="btn btn-success"">
             <span class="glyphicon glyphicon-check"></span>
             Mark as completed
         </button>
-        <button type="button" class="btn btn-danger">
+        <button type="button" class="btn btn-danger" ng-click="deleteTask(currentTask.id)">
             <span class="glyphicon glyphicon-remove"></span>
             Remove
         </button>

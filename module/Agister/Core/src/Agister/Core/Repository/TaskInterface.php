@@ -26,6 +26,13 @@ interface TaskInterface
     public function findAll();
 
     /**
+     * Remove task
+     *
+     * @param Entity\Task $task
+     */
+    public function delete(Entity\Task $task);
+
+    /**
      * Find all tasks that end after dateFrom
      *
      * @param  DateTime $dateFrom

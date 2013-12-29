@@ -74,4 +74,11 @@ class TaskResource extends AbstractResourceListener
         }
         return $ret;
     }
+
+    public function delete($id)
+    {
+        $task = $this->repository->findById($id);
+        $this->repository->delete($task);
+        return true;
+    }
 }

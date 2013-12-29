@@ -68,6 +68,17 @@ class Task extends EntityRepository implements TaskInterface
     }
 
     /**
+     * Remove task
+     *
+     * @param Entity\Task $task
+     */
+    public function delete(Entity\Task $task)
+    {
+        $this->_em->remove($task);
+        $this->_em->flush($task);
+    }
+
+    /**
      * Find when new task should start
      *
      * @param  int $hoursToAllocate

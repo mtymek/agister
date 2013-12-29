@@ -56,7 +56,7 @@ agisterModule.controller('AgisterDashboardController',
             "title": "",
             "hoursMin": 1,
             "hoursMax": 1,
-            "description": ""
+            "details": ""
         };
 
         var currentTask;
@@ -94,6 +94,7 @@ agisterModule.controller('AgisterDashboardController',
             $http.delete(basePathHelper('/api/tasks/' + id))
                 .success(function () {
                     $agisterTimeline.loadInto($scope);
+                    $scope.taskDetailsVisible = false;
                 });
         }
 

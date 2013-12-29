@@ -34,7 +34,7 @@ class Task
      *
      * @ORM\Column(type="text",nullable=true)
      */
-    protected $description;
+    protected $details;
 
     /**
      * @var DateTime
@@ -80,12 +80,12 @@ class Task
     }
 
     /**
-     * @param  string $description
+     * @param  string $details
      * @return self
      */
-    public function setDescription($description)
+    public function setDetails($details)
     {
-        $this->description = $description;
+        $this->details = $details;
 
         return $this;
     }
@@ -93,9 +93,9 @@ class Task
     /**
      * @return string
      */
-    public function getDescription()
+    public function getDetails()
     {
-        return $this->description;
+        return $this->details;
     }
 
     /**

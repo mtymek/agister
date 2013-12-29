@@ -22,7 +22,7 @@ class Task extends InputFilter
         );
         $this->add(
             array(
-                'name' => 'description',
+                'name' => 'details',
                 'required' => false,
                 'value' => ''
             )

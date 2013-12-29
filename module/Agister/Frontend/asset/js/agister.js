@@ -49,7 +49,7 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
 agisterModule.controller('AgisterDashboardController',
     ['$scope', '$http', '$filter', '$agisterTimeline', function ($scope, $http, $filter, $agisterTimeline) {
 
-        $scope.addTaskFormHidden = true;
+        $scope.addTaskFormVisible = false;
         $scope.taskDetailsVisible = false;
 
         var task = {

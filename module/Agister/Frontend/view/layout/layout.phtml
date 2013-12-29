@@ -45,19 +45,19 @@
                                    type="text"
                                    name="task-title"
                                    placeholder="Type to add new task"
-                                   ng-focus="addTaskFormHidden = false"
+                                   ng-focus="addTaskFormVisible = true"
                                    ng-model="newTask.title"
                                 />
                         </div>
                     </form>
-                    <div class="add-task-full" ng-show="!addTaskFormHidden">
+                    <div class="add-task-full" ng-show="addTaskFormVisible">
                         <?php echo $this->addTaskForm() ?>
                     </div>
                 </div>
             </div>
         </nav>
 
-        <div class="agister-container" ng-click="addTaskFormHidden = true">
+        <div class="agister-container" ng-click="addTaskFormVisible = false">
             <?php echo $this->content; ?>
             <hr>
             <footer>

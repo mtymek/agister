@@ -47,26 +47,48 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
 }]);
 
 agisterModule.controller('AgisterDashboardController',
-    ['$scope', '$http', '$agisterTimeline', function ($scope, $http, $agisterTimeline) {
+    ['$scope', '$http', '$filter', '$agisterTimeline', function ($scope, $http, $filter, $agisterTimeline) {
 
-    $scope.addTaskFormHidden = true;
+        $scope.addTaskFormHidden = true;
+        $scope.taskDetailsVisible = false;
 
-    var task = {
-        "title": "",
-        "hoursMin": 1,
-        "hoursMax": 1,
-        "description": ""
-    };
+        var task = {
+            "title": "",
+            "hoursMin": 1,
+            "hoursMax": 1,
+            "description": ""
+        };
 
-    $scope.newTask = angular.copy(task);
+        var currentTask;
 
-    $scope.addTask = function () {
-        $scope.newTask.hoursMin = $scope.newTask.hoursMax;
-        $http.post(basePathHelper('/api/tasks'), $scope.newTask)
-            .success(function (data) {
-                $agisterTimeline.loadInto($scope);
+        $scope.newTask = angular.copy(task);
+
+        $scope.addTask = function () {
+            $scope.newTask.hoursMin = $scope.newTask.hoursMax;
+            $http.post(basePathHelper('/api/tasks'), $scope.newTask)
+                .success(function (data) {
+                    $agisterTimeline.loadInto($scope);
+                });
+        }
+
+        $scope.loadTaskDetails = function (id) {
+            $http.get(basePathHelper('/api/tasks/' + id)).success(function (data) {
+                currentTask = data;
+
+                var startsAt = new Date(data.startsAt.date);
+                var finishesAt = new Date(data.startsAt.date);
+                finishesAt.setHours(finishesAt.getHours() + data.hoursMax);
+
+                $scope.taskDetailsVisible = true;
+                $scope.currentTask =  {
+                    "title": currentTask.title,
+                    "details": currentTask.details,
+                    "startsAt": $filter('date')(startsAt, "yyyy-MM-dd H:mm"),
+                    "finishesAt": $filter('date')(finishesAt, "yyyy-MM-dd H:mm")
+                };
             });
-    }
+        }
 
-    $agisterTimeline.loadInto($scope);
-}]);
+        $agisterTimeline.loadInto($scope);
+    }]
+);

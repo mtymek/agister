@@ -37,6 +37,9 @@
     width: 180px;
 }
 
+.timeline-table .timeline {
+    overflow: hidden;
+}
 .timeline-table .task-container {
     height: 15px;
     margin: 0 15px;
@@ -64,4 +67,8 @@
 
 .timeline-table .title {
     cursor: pointer;
+}
+
+.task-details {
+    background-color: #f8f8f8;
 }

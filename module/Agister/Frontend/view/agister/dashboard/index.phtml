@@ -6,7 +6,7 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
 ?>
 <div class="row">
 
-    <div class="col-md-12">
+    <div ng-class="{'col-md-12': !taskDetailsVisible, 'col-md-8': taskDetailsVisible}">
         <table class="timeline-table">
             <tr>
                 <td class="title">
@@ -23,7 +23,7 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                 </td>
             </tr>
             <tr ng-repeat="task in timeline.tasks">
-                <td class="title">
+                <td class="title" ng-click="loadTaskDetails(task.id)">
                     {{ task.title }}
                 </td>
                 <td class="timeline">
@@ -35,5 +35,28 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                 </td>
             </tr>
         </table>
+    </div>
+    <div class="col-md-4 task-details" ng-show="taskDetailsVisible">
+        <button type="button" class="close" ng-click="taskDetailsVisible = false">&times;</button>
+        <header><h3>{{ currentTask.title }}</h3></header>
+
+        <dl class="info">
+            <dt>Start</dt>
+            <dd>{{ currentTask.startsAt }}</dd>
+            <dt>Finish</dt>
+            <dd>{{ currentTask.finishesAt }}</dd>
+            <dt>Details</dt>
+            <dd ng-show="currentTask.details">{{ currentTask.details }}</dd>
+            <dd ng-show="!currentTask.details"><em>no details are available</em></dd>
+        </dl>
+
+        <button type="button" class="btn btn-success">
+            <span class="glyphicon glyphicon-check"></span>
+            Mark as completed
+        </button>
+        <button type="button" class="btn btn-danger">
+            <span class="glyphicon glyphicon-remove"></span>
+            Remove
+        </button>
     </div>
 </div>

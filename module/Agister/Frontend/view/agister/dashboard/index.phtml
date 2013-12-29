@@ -24,7 +24,6 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
         <tr ng-repeat="task in timeline.tasks">
             <td class="title">
                 {{ task.title }}
-                ({{ task.startsAt.date }})
             </td>
             <td class="timeline">
                 <div class="task-container">

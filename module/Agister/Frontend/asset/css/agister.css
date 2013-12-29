@@ -1,3 +1,7 @@
+.agister-container {
+    padding: 0 15px;
+}
+
 .add-task-wrapper {
     position: relative;
     float: left;
@@ -56,4 +60,8 @@
 }
 .timeline-table .date-marker {
     position: absolute;
+}
+
+.timeline-table .title {
+    cursor: pointer;
 }

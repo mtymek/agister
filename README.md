@@ -63,5 +63,7 @@ Goals (new elements may be added during coding):
     - [X] use Angular.js as frontend engine
     - [X] allow adding new tasks
     - [ ] allow marking tasks as "completed"
-    - [ ] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
+    - [X] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
+    - [ ] start timeline with current week, allow selecting different dates (?)
+- [ ] support splitting work into 8-hour days, and 5-day weeks
 - [ ] try not to drink too much coke during development

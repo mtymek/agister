@@ -27,6 +27,13 @@ class TimelineResource extends AbstractResourceListener
      */
     private $hydrator;
 
+    /**
+     * Class constructor
+     *
+     * @param Service\Task $taskService
+     * @param Repository\Task $repository
+     * @param Hydrator\Timeline $hydrator
+     */
     public function __construct(
         Service\Task $taskService,
         Repository\Task $repository,
@@ -52,8 +59,7 @@ class TimelineResource extends AbstractResourceListener
         $dateFrom->setTime(0, 0, 0);
         $dateFrom->sub(new DateInterval('P' . ($dateFrom->format('w')?$dateFrom->format('w')-1:6) . 'D'));
 
-        $tasks = $this->repository->findAllFromDate($dateFrom);
-        $timeline = $this->taskService->createTimeline($tasks);
+        $timeline = $this->taskService->createTimeline($dateFrom);
         return $this->hydrator->extract($timeline);
     }
 

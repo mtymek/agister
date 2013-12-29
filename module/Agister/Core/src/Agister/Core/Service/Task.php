@@ -40,18 +40,15 @@ class Task
     }
 
     /**
-     * @param  Entity\Task[] $tasks
+     * @param  DateTime $dateFrom
      * @return Entity\Timeline
      */
-    public function createTimeline($tasks)
+    public function createTimeline(DateTime $dateFrom)
     {
-        $dateFrom = new DateTime('2050-12-12');
+        $tasks = $this->repository->findAllFromDate($dateFrom);
         $dateTo = new DateTime('1970-01-01');
 
         foreach ($tasks as $task) {
-            if ($dateFrom > $task->getStartsAt()) {
-                $dateFrom = clone $task->getStartsAt();
-            }
             $tmp = clone $task->getStartsAt();
             $tmp->add(new DateInterval('PT' . $task->getHoursMax() . 'H'));
             if ($dateTo < $tmp) {

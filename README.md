@@ -62,8 +62,10 @@ Goals (new elements may be added during coding):
     - [X] use Bower for managing front-end packages
     - [X] use Angular.js as frontend engine
     - [X] allow adding new tasks
+    - [ ] create "task details" view, with editing options
     - [ ] allow marking tasks as "completed"
     - [X] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
-    - [ ] start timeline with current week, allow selecting different dates (?)
+    - [X] start timeline with current week
+    - [ ] allow selecting different dates (?)
 - [ ] support splitting work into 8-hour days, and 5-day weeks
 - [ ] try not to drink too much coke during development

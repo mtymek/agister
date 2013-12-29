@@ -80,10 +80,13 @@ agisterModule.controller('AgisterDashboardController',
                 finishesAt.setHours(finishesAt.getHours() + data.hoursMax);
 
                 $scope.taskDetailsVisible = true;
+
+                // "view model"
                 $scope.currentTask =  {
                     "id": currentTask.id,
                     "title": currentTask.title,
                     "details": currentTask.details,
+                    "completed": currentTask.completed,
                     "startsAt": $filter('date')(startsAt, "yyyy-MM-dd H:mm"),
                     "finishesAt": $filter('date')(finishesAt, "yyyy-MM-dd H:mm")
                 };
@@ -95,6 +98,13 @@ agisterModule.controller('AgisterDashboardController',
                 .success(function () {
                     $agisterTimeline.loadInto($scope);
                     $scope.taskDetailsVisible = false;
+                });
+        }
+
+        $scope.completeTask = function (id) {
+            $http.put(basePathHelper('/api/tasks/' + id), { "completed": 1 })
+                .success(function () {
+                    $agisterTimeline.loadInto($scope);
                 });
         }
 

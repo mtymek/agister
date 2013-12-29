@@ -28,7 +28,8 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                 </td>
                 <td class="timeline">
                     <div class="task-container">
-                        <div class="task"
+                        <div ng-class="{task: true, completed: task.completed}"
+                             ng-click="loadTaskDetails(task.id)"
                              style="margin-left: {{ task.scaledStart }}%; width: {{ task.scaledWidth }}%">
                         </div>
                     </div>
@@ -51,7 +52,10 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                 <dd ng-show="!currentTask.details"><em>no details are available</em></dd>
             </dl>
 
-            <button type="button" class="btn btn-success"">
+            <button type="button" class="btn btn-success"
+                    ng-click="completeTask(currentTask.id)"
+                    ng-show="!currentTask.completed"
+                >
                 <span class="glyphicon glyphicon-check"></span>
                 Mark as completed
             </button>

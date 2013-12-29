@@ -2,7 +2,6 @@
 
 namespace Agister\Backend\Rest;
 
-use Agister\Core\Entity\Task;
 use Agister\Core\Repository;
 use Agister\Core\Service;
 use Agister\Backend\InputFilter;
@@ -17,9 +16,14 @@ class TaskResource extends AbstractResourceListener
     private $repository;
 
     /**
+     * @var \Agister\Backend\InputFilter\NewTask
+     */
+    private $newTaskInputFilter;
+
+    /**
      * @var \Agister\Backend\InputFilter\Task
      */
-    private $inputFilter;
+    private $taskInputFilter;
 
     /**
      * @var \DoctrineModule\Stdlib\Hydrator\DoctrineObject
@@ -34,27 +38,48 @@ class TaskResource extends AbstractResourceListener
     public function __construct(
         Service\Task $taskService,
         Repository\Task $repository,
-        InputFilter\Task $inputFilter,
+        InputFilter\NewTask $newTaskInputFilter,
+        InputFilter\Task $taskInputFilter,
         DoctrineObject $hydrator
     )
     {
         $this->repository = $repository;
-        $this->inputFilter = $inputFilter;
+        $this->newTaskInputFilter = $newTaskInputFilter;
+        $this->taskInputFilter = $taskInputFilter;
         $this->hydrator = $hydrator;
         $this->taskService = $taskService;
     }
 
     public function create($data)
     {
-        $filter = $this->inputFilter;
+        $filter = $this->newTaskInputFilter;
         $filter->setData((array) $data);
         if (!$filter->isValid()) {
-            print_r($filter->getMessages());
             throw new \Exception("Invalid data!");
         }
         $entity = $this->taskService->create();
         $this->hydrator->hydrate($filter->getValues(), $entity);
         $this->taskService->allocate($entity);
+        $this->repository->save($entity);
+
+        return $this->fetch($entity->getId());
+    }
+
+    public function update($id, $data)
+    {
+        $data = (array) $data;
+        $filter = $this->taskInputFilter;
+        $filter->setData($data);
+        if (!$filter->isValid()) {
+            throw new \Exception("Invalid data!");
+        }
+        $entity = $this->repository->findById($id);
+
+        // ensure we pass only properties that were given as an input
+        $values = $filter->getValues();
+        $values = array_intersect_key($values, $data);
+
+        $this->hydrator->hydrate($values, $entity);
         $this->repository->save($entity);
 
         return $this->fetch($entity->getId());

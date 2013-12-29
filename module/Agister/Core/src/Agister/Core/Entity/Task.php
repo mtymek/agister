@@ -62,7 +62,7 @@ class Task
      *
      * @ORM\Column(type="boolean")
      */
-    protected $active = 1;
+    protected $completed = false;
 
     /**
      * @return int
@@ -173,22 +173,21 @@ class Task
     }
 
     /**
-     * @param  boolean $active
+     * @param boolean $completed
      * @return self
      */
-    public function setActive($active)
+    public function setCompleted($completed)
     {
-        $this->active = $active;
-
+        $this->completed = $completed;
         return $this;
     }
 
     /**
      * @return boolean
      */
-    public function getActive()
+    public function isCompleted()
     {
-        return $this->active;
+        return $this->completed;
     }
 
 }

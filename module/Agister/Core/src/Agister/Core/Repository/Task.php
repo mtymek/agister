@@ -29,15 +29,6 @@ class Task extends EntityRepository implements TaskInterface
     }
 
     /**
-     * Find all active tasks
-     * @return array
-     */
-    public function findAllActive()
-    {
-        return $this->findBy(array('active' => 1), array('id' => 'ASC'));
-    }
-
-    /**
      * Find all tasks that end after dateFrom
      *
      * @param  DateTime $dateFrom

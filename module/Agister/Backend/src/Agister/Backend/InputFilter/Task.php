@@ -11,7 +11,7 @@ class Task extends InputFilter
         $this->add(
             array(
                 'name' => 'title',
-                'required' => true,
+                'required' => false,
                 'validators' => array(
                     array(
                         'name' => 'string_length',
@@ -30,7 +30,7 @@ class Task extends InputFilter
         $this->add(
             array(
                 'name' => 'hoursMin',
-                'required' => true,
+                'required' => false,
                 'filters' => array(
                     array(
                         'name' => 'int'
@@ -41,10 +41,21 @@ class Task extends InputFilter
         $this->add(
             array(
                 'name' => 'hoursMax',
-                'required' => true,
+                'required' => false,
                 'filters' => array(
                     array(
                         'name' => 'int'
+                    )
+                )
+            )
+        );
+        $this->add(
+            array(
+                'name' => 'completed',
+                'required' => false,
+                'filters' => array(
+                    array(
+                        'name' => 'boolean'
                     )
                 )
             )

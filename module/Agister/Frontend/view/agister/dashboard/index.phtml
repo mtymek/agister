@@ -4,35 +4,36 @@ $this->headScript()->appendFile($this->basePath('js/agister.js'));
 $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
 
 ?>
-<div>
+<div class="row">
 
-    <table class="timeline-table">
-        <tr>
-            <td class="title">
-                Task
-            </td>
-            <td>
-                <div class="legend-wrapper">
-                    <div class="date-marker"
-                         style="left: {{ date.seconds * timeline.scale*0.95 }}%"
-                         ng-repeat="date in timeline.dateMarkers">
-                        {{ date.date.getDate() }} / {{ date.date.getMonth()+1 }}
+    <div class="col-md-12">
+        <table class="timeline-table">
+            <tr>
+                <td class="title">
+                    Task
+                </td>
+                <td>
+                    <div class="legend-wrapper">
+                        <div class="date-marker"
+                             style="left: {{ date.seconds * timeline.scale*0.95 }}%"
+                             ng-repeat="date in timeline.dateMarkers">
+                            {{ date.date.getDate() }} / {{ date.date.getMonth()+1 }}
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-        <tr ng-repeat="task in timeline.tasks">
-            <td class="title">
-                {{ task.title }}
-            </td>
-            <td class="timeline">
-                <div class="task-container">
-                    <div class="task"
-                         style="margin-left: {{ task.scaledStart }}%; width: {{ task.scaledWidth }}%">
+                </td>
+            </tr>
+            <tr ng-repeat="task in timeline.tasks">
+                <td class="title">
+                    {{ task.title }}
+                </td>
+                <td class="timeline">
+                    <div class="task-container">
+                        <div class="task"
+                             style="margin-left: {{ task.scaledStart }}%; width: {{ task.scaledWidth }}%">
+                        </div>
                     </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>

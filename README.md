@@ -45,8 +45,9 @@ Technologies:
 
 * Zend Framework 2 as PHP framework
 * Doctrine 2 as database backend
+* ZF-REST module for API
 * Twitter Bootstrap as CSS framework
-* some JS template library
+* AngularJS as frontend framework
 
 Goals (new elements may be added during coding):
 

@@ -97,6 +97,7 @@ class TaskResource extends AbstractResourceListener
         foreach ($collection as $entity) {
             $ret[] = $this->hydrator->extract($entity);
         }
+
         return $ret;
     }
 
@@ -104,6 +105,7 @@ class TaskResource extends AbstractResourceListener
     {
         $task = $this->repository->findById($id);
         $this->repository->delete($task);
+
         return true;
     }
 }

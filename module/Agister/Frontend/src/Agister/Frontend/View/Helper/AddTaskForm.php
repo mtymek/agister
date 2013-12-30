@@ -2,7 +2,6 @@
 
 namespace Agister\Frontend\View\Helper;
 
-
 use Agister\Frontend\Form\AddTask;
 use Zend\View\Helper\AbstractHelper;
 use Zend\View\Model\ViewModel;
@@ -30,6 +29,7 @@ class AddTaskForm extends AbstractHelper
         $vm = new ViewModel();
         $vm->form = $this->addTaskForm;
         $vm->setTemplate('agister/partial/add-task-form.phtml');
+
         return $this->getView()->render($vm);
     }
 

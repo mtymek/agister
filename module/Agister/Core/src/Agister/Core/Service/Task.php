@@ -31,6 +31,7 @@ class Task
     public function create()
     {
         $task = new Entity\Task();
+
         return $task;
     }
 
@@ -40,7 +41,7 @@ class Task
     }
 
     /**
-     * @param  DateTime $dateFrom
+     * @param  DateTime        $dateFrom
      * @return Entity\Timeline
      */
     public function createTimeline(DateTime $dateFrom)

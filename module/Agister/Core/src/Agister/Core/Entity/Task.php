@@ -99,12 +99,13 @@ class Task
     }
 
     /**
-     * @param int $hoursMax
+     * @param  int  $hoursMax
      * @return self
      */
     public function setHoursMax($hoursMax)
     {
         $this->hoursMax = $hoursMax;
+
         return $this;
     }
 
@@ -117,12 +118,13 @@ class Task
     }
 
     /**
-     * @param int $hoursMin
+     * @param  int  $hoursMin
      * @return self
      */
     public function setHoursMin($hoursMin)
     {
         $this->hoursMin = $hoursMin;
+
         return $this;
     }
 
@@ -173,12 +175,13 @@ class Task
     }
 
     /**
-     * @param boolean $completed
+     * @param  boolean $completed
      * @return self
      */
     public function setCompleted($completed)
     {
         $this->completed = $completed;
+
         return $this;
     }
 

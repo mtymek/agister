@@ -5,7 +5,6 @@ namespace Agister\Core\Repository;
 use DateTime;
 use Doctrine\ORM\EntityRepository;
 use Agister\Core\Entity;
-use Doctrine\ORM\Query\ResultSetMapping;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
 
 /**
@@ -31,7 +30,7 @@ class Task extends EntityRepository implements TaskInterface
     /**
      * Find all tasks that end after dateFrom
      *
-     * @param  DateTime $dateFrom
+     * @param  DateTime      $dateFrom
      * @return Entity\Task[]
      */
     public function findAllFromDate(DateTime $dateFrom)
@@ -72,7 +71,7 @@ class Task extends EntityRepository implements TaskInterface
     /**
      * Find when new task should start
      *
-     * @param  int $hoursToAllocate
+     * @param  int      $hoursToAllocate
      * @return DateTime
      */
     public function findGapForNewTask($hoursToAllocate)

@@ -55,7 +55,6 @@ class AddTask extends Form
             )
         );
 
-
     }
 
 }

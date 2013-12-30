@@ -2,7 +2,6 @@
 
 namespace Agister\Backend\Factory;
 
-use Agister\Backend\InputFilter;
 use Agister\Backend\Hydrator\Timeline;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use Zend\ServiceManager\FactoryInterface;

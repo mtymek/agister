@@ -35,7 +35,7 @@ interface TaskInterface
     /**
      * Find all tasks that end after dateFrom
      *
-     * @param  DateTime $dateFrom
+     * @param  DateTime      $dateFrom
      * @return Entity\Task[]
      */
     public function findAllFromDate(DateTime $dateFrom);
@@ -43,7 +43,7 @@ interface TaskInterface
     /**
      * Find when new task should start
      *
-     * @param  int $hoursToAllocate
+     * @param  int      $hoursToAllocate
      * @return DateTime
      */
     public function findGapForNewTask($hoursToAllocate);

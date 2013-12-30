@@ -2,7 +2,6 @@
 
 namespace Agister\Backend\Factory;
 
-use Agister\Backend\InputFilter;
 use Agister\Backend\Rest\TimelineResource as TimelineTaskResource;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

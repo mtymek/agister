@@ -4,7 +4,6 @@ namespace Agister\Backend\Rest;
 
 use Agister\Core\Service;
 use Agister\Core\Repository;
-use Agister\Backend\InputFilter;
 use Agister\Backend\Hydrator;
 use DateInterval;
 use DateTime;
@@ -30,8 +29,8 @@ class TimelineResource extends AbstractResourceListener
     /**
      * Class constructor
      *
-     * @param Service\Task $taskService
-     * @param Repository\Task $repository
+     * @param Service\Task      $taskService
+     * @param Repository\Task   $repository
      * @param Hydrator\Timeline $hydrator
      */
     public function __construct(
@@ -60,6 +59,7 @@ class TimelineResource extends AbstractResourceListener
         $dateFrom->sub(new DateInterval('P' . ($dateFrom->format('w')?$dateFrom->format('w')-1:6) . 'D'));
 
         $timeline = $this->taskService->createTimeline($dateFrom);
+
         return $this->hydrator->extract($timeline);
     }
 

@@ -2,7 +2,6 @@
 
 namespace Agister\Core\Entity;
 
-
 use DateTime;
 
 class Timeline
@@ -24,12 +23,13 @@ class Timeline
     protected $dateTo;
 
     /**
-     * @param \DateTime $dateFrom
+     * @param  \DateTime $dateFrom
      * @return self
      */
     public function setDateFrom($dateFrom)
     {
         $this->dateFrom = $dateFrom;
+
         return $this;
     }
 
@@ -42,12 +42,13 @@ class Timeline
     }
 
     /**
-     * @param \DateTime $dateTo
+     * @param  \DateTime $dateTo
      * @return self
      */
     public function setDateTo($dateTo)
     {
         $this->dateTo = $dateTo;
+
         return $this;
     }
 
@@ -60,12 +61,13 @@ class Timeline
     }
 
     /**
-     * @param \Agister\Core\Entity\Task[] $tasks
+     * @param  \Agister\Core\Entity\Task[] $tasks
      * @return self
      */
     public function setTasks($tasks)
     {
         $this->tasks = $tasks;
+
         return $this;
     }
 

@@ -20,7 +20,6 @@ class Timeline
         $this->taskHydrator = $taskHydrator;
     }
 
-
     /**
      * @param  Entity\Timeline $timeline
      * @return array

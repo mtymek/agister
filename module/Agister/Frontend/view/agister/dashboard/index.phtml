@@ -35,6 +35,11 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                     </div>
                 </td>
             </tr>
+            <tr ng-hide="tasks.length">
+                <td colspan="2">
+                    <em>Task list is empty. Add new tasks using form above.</em>
+                </td>
+            </tr>
         </table>
     </div>
     <div class="col-md-4" ng-show="taskDetailsVisible">

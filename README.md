@@ -52,17 +52,17 @@ Technologies:
 Goals (new elements may be added during coding):
 
 - [X] create simple skeleton app based on ZF2 and Doctrine
-- [ ] create backend module that defines entities used by app and services for accessing them
+- [X] create backend module that defines entities used by app and services for accessing them
     - [X] define internal data structures: tasks, timeline, etc. No need to take care of users for now.
     - [ ] write unit tests
-- [ ] create control module that exposes services and entities and operates on data in JSON format
+- [X] create control module that exposes services and entities and operates on data in JSON format
     - [X] use ZF-Rest module for API
     - [ ] write unit tests
-- [ ] create frontend module (with help of AssetManager module)
+- [X] create frontend module (with help of AssetManager module)
     - [X] use Bower for managing front-end packages
     - [X] use Angular.js as frontend engine
     - [X] allow adding new tasks
-    - [ ] create "task details" view
+    - [X] create "task details" view
     - [X] allow marking tasks as "completed"
     - [X] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
     - [X] start timeline with current week

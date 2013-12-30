@@ -78,8 +78,8 @@ class Task extends EntityRepository implements TaskInterface
     public function findGapForNewTask($hoursToAllocate)
     {
         $query = "
-SELECT MAX(ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR))
-FROM task t1
+SELECT MAX(ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR)) as dd
+FROM task t1 HAVING dd > NOW();
         ";
         $dbh = $this->getEntityManager()->getConnection()->getWrappedConnection();
         $stmt = $dbh->prepare($query);

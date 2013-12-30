@@ -35,7 +35,7 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                     </div>
                 </td>
             </tr>
-            <tr ng-hide="tasks.length">
+            <tr ng-hide="timeline.tasks.length">
                 <td colspan="2">
                     <em>Task list is empty. Add new tasks using form above.</em>
                 </td>
@@ -45,13 +45,20 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
     <div class="col-md-4" ng-show="taskDetailsVisible">
         <div class="task-details">
             <button type="button" class="close" ng-click="taskDetailsVisible = false">&times;</button>
-            <header><h3>{{ currentTask.title }}</h3></header>
+            <header>
+                <h4>
+                    {{ currentTask.title }}
+                    <span ng-show="currentTask.completed">(completed)</span>
+                </h4>
+            </header>
 
             <dl class="info">
+                <dt>Estimate</dt>
+                <dd>{{ currentTaskViewModel.estimate }}</dd>
                 <dt>Start</dt>
-                <dd>{{ currentTask.startsAt }}</dd>
+                <dd>{{ currentTaskViewModel.startsAt }}</dd>
                 <dt>Finish</dt>
-                <dd>{{ currentTask.finishesAt }}</dd>
+                <dd>{{ currentTaskViewModel.finishesAt }}</dd>
                 <dt>Details</dt>
                 <dd ng-show="currentTask.details">{{ currentTask.details }}</dd>
                 <dd ng-show="!currentTask.details"><em>no details are available</em></dd>

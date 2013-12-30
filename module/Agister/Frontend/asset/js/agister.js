@@ -69,6 +69,7 @@ agisterModule.controller('AgisterDashboardController',
                 .success(function (data) {
                     $agisterTimeline.loadInto($scope);
                 });
+            $scope.newTask = angular.copy(task);
         }
 
         $scope.loadTaskDetails = function (id) {
@@ -81,14 +82,18 @@ agisterModule.controller('AgisterDashboardController',
 
                 $scope.taskDetailsVisible = true;
 
+                if (currentTask.hoursMin != currentTask.hoursMax) {
+                    var estimate = currentTask.hoursMin + 'h - ' + currentTask.hoursMax + 'h'
+                } else {
+                    var estimate = currentTask.hoursMin + 'h';
+                }
+
+                $scope.currentTask =  currentTask;
                 // "view model"
-                $scope.currentTask =  {
-                    "id": currentTask.id,
-                    "title": currentTask.title,
-                    "details": currentTask.details,
-                    "completed": currentTask.completed,
-                    "startsAt": $filter('date')(startsAt, "yyyy-MM-dd H:mm"),
-                    "finishesAt": $filter('date')(finishesAt, "yyyy-MM-dd H:mm")
+                $scope.currentTaskViewModel =  {
+                    "estimate": estimate,
+                    "startsAt": $filter('date')(startsAt, "yyyy-MM-dd"),
+                    "finishesAt": $filter('date')(finishesAt, "yyyy-MM-dd")
                 };
             });
         }

@@ -58,6 +58,24 @@ class Task
     protected $hoursMax;
 
     /**
+     * Estimated finish
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $finishesAtMin;
+
+    /**
+     * Estimated finish
+     *
+     * @var DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    protected $finishesAtMax;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(type="boolean")
@@ -191,6 +209,42 @@ class Task
     public function isCompleted()
     {
         return $this->completed;
+    }
+
+    /**
+     * @param \DateTime $finishesAtMax
+     * @return self
+     */
+    public function setFinishesAtMax($finishesAtMax)
+    {
+        $this->finishesAtMax = $finishesAtMax;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFinishesAtMax()
+    {
+        return $this->finishesAtMax;
+    }
+
+    /**
+     * @param \DateTime $finishesAtMin
+     * @return self
+     */
+    public function setFinishesAtMin($finishesAtMin)
+    {
+        $this->finishesAtMin = $finishesAtMin;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getFinishesAtMin()
+    {
+        return $this->finishesAtMin;
     }
 
 }

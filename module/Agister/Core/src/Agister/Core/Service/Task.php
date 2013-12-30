@@ -74,4 +74,21 @@ class Task
         return $timeline;
     }
 
+    /**
+     * Return number of hours that can be allocated on given day
+     *
+     * @param DateTime $day
+     * @return int
+     */
+    public function getWorkingHours(DateTime $day)
+    {
+        // don't work on Saturday & Sunday
+        if ($day->format('N') == 6
+            || $day->format('N') == 7
+        ) {
+            return 0;
+        }
+        return 8;
+    }
+
 }

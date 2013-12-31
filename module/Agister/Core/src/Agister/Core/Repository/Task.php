@@ -35,7 +35,7 @@ class Task extends EntityRepository implements TaskInterface
      */
     public function findAllFromDate(DateTime $dateFrom)
     {
-        $query = "SELECT * FROM task t WHERE ADDDATE(t.startsAt, INTERVAL t.hoursMax HOUR) >= :dateFrom";
+        $query = "SELECT * FROM task t WHERE t.finishesAtMax >= :dateFrom";
 
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('Agister\Core\Entity\Task', 't');
@@ -71,14 +71,13 @@ class Task extends EntityRepository implements TaskInterface
     /**
      * Find when new task should start
      *
-     * @param  int      $hoursToAllocate
      * @return DateTime
      */
-    public function findGapForNewTask($hoursToAllocate)
+    public function findGapForNewTask()
     {
         $query = "
-SELECT MAX(ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR)) as dd
-FROM task t1 HAVING dd > NOW();
+SELECT MAX(t1.finishesAtMax) as dd
+FROM task t1 HAVING DATE(dd) >= DATE(NOW());
         ";
         $dbh = $this->getEntityManager()->getConnection()->getWrappedConnection();
         $stmt = $dbh->prepare($query);
@@ -87,48 +86,9 @@ FROM task t1 HAVING dd > NOW();
         if ($value) {
             return new DateTime($value);
         } else {
-            return new DateTime();
-        }
-    }
-
-    /**
-     * Some ideas for allocating tasks in gaps (not used right now)
-     *
-     * @param $minHours
-     * @return DateTime
-     */
-    private function _findGapForNewTask($minHours)
-    {
-        // search for gap at the beginning
-        $gapFinderQuery = "
-SELECT t1.startsAt
-FROM task t1
-LEFT JOIN task t2 ON ADDDATE(t2.startsAt, INTERVAL t2.hoursMax HOUR) <= t1.startsAt
-WHERE
-    t1.startsAt > NOW()
-    AND t2.id IS NULL
-    AND TIMEDIFF(t1.startsAt, NOW()) > :minHours
-        ";
-
-        // search for gaps
-        $gapFinderQuery = "
-SELECT ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR) AS cc
-FROM task t1
-    INNER JOIN task t2 ON ADDDATE(t1.startsAt, INTERVAL t1.hoursMax HOUR) <= t2.startsAt
-GROUP BY cc
-HAVING
-    TIMEDIFF(MIN(t2.startsAt), cc) > :minHours
-LIMIT 1
-    ";
-        $dbh = $this->getEntityManager()->getConnection()->getWrappedConnection();
-        $stmt = $dbh->prepare($gapFinderQuery);
-        $stmt->execute(array(
-                'minHours' => $minHours . ':00:00'
-            ));
-        $gap = $stmt->fetchColumn();
-
-        if ($gap) {
-            return new DateTime($gap);
+            $ret = new DateTime();
+            $ret->setTime(0, 0, 0);
+            return $ret;
         }
     }
 

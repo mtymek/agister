@@ -25,8 +25,10 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
 
             for (var i in data.tasks) {
                 var st = new Date(data.tasks[i].startsAt.date);
+                var fin = new Date(data.tasks[i].finishesAtMax.date);
+                console.dir(data);
                 data.tasks[i].scaledStart = Math.round((st.getTime() - dateFrom.getTime())/ 1000) * data.scale;
-                data.tasks[i].scaledWidth = data.tasks[i].hoursMax*3600 * data.scale;
+                data.tasks[i].scaledWidth = Math.round((fin.getTime() - dateFrom.getTime())/ 1000) * data.scale - data.tasks[i].scaledStart;
             }
 
             // date markers
@@ -77,8 +79,7 @@ agisterModule.controller('AgisterDashboardController',
                 currentTask = data;
 
                 var startsAt = new Date(data.startsAt.date);
-                var finishesAt = new Date(data.startsAt.date);
-                finishesAt.setHours(finishesAt.getHours() + data.hoursMax);
+                var finishesAt = new Date(data.finishesAtMax.date);
 
                 $scope.taskDetailsVisible = true;
 

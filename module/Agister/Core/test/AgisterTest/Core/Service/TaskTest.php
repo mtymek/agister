@@ -16,7 +16,7 @@ class TaskTest extends PHPUnit_Framework_TestCase
         // single task
         $task = new Entity\Task();
         $task->setStartsAt(new DateTime('2013-12-11 12:00')); // Wed
-        $task->setHoursMax(48); // 2 full days
+        $task->setFinishesAtMax(new DateTime('2013-12-14 01:00:00'));
         $dataset[] = array(
             array($task),
             '2013-12-09 00:00:00',
@@ -26,7 +26,7 @@ class TaskTest extends PHPUnit_Framework_TestCase
         // last week of the year
         $task = new Entity\Task();
         $task->setStartsAt(new DateTime('2013-12-30 12:00')); // Wed
-        $task->setHoursMax(24); // 2 full days
+        $task->setFinishesAtMax(new DateTime('2014-01-03 01:00:00'));
         $dataset[] = array(
             array($task),
             '2013-12-30 00:00:00',
@@ -89,6 +89,43 @@ class TaskTest extends PHPUnit_Framework_TestCase
         $ret = $service->getWorkingHours(new DateTime($date));
         $this->assertEquals($hours, $ret);
 
+    }
+
+    public function provideDataForAllocate()
+    {
+        return array(
+            array('8', '2013-12-30 00:00:00', '2013-12-30 00:00:00', '2013-12-30 08:00:00'), // one full day
+            array('10', '2013-12-30 00:00:00', '2013-12-30 00:00:00', '2013-12-31 02:00:00'), // span between two days
+            array('12', '2013-12-06 00:00:00', '2013-12-06 00:00:00', '2013-12-09 04:00:00'), // span over the weekend
+            array('5', '2013-12-31 05:00:00', '2013-12-31 05:00:00', '2014-01-01 02:00:00'), // span over the weekend
+        );
+    }
+
+
+    /**
+     * @param $hoursToAllocate
+     * @param $gapStart
+     * @param $shouldStartAt
+     * @param $shouldFinishAt
+     *
+     * @dataProvider provideDataForAllocate
+     */
+    public function testAllocate($hoursToAllocate, $gapStart, $shouldStartAt, $shouldFinishAt)
+    {
+        $repository = $this->getMock(
+            'Agister\Core\Repository\TaskInterface',
+            array('save', 'findById', 'findAll', 'delete', 'findGapForNewTask',  'findAllFromDate')
+        );
+        $repository->expects($this->once())->method('findGapForNewTask')
+            ->will($this->returnValue(new DateTime($gapStart)));
+
+        $entity = new Entity\Task();
+        $entity->setHoursMax($hoursToAllocate)->setHoursMin($hoursToAllocate);
+
+        $service = new Task($repository);
+        $service->allocate($entity);
+        $this->assertEquals($shouldStartAt, $entity->getStartsAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals($shouldFinishAt, $entity->getFinishesAtMax()->format('Y-m-d H:i:s'));
     }
 
 }

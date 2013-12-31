@@ -43,9 +43,8 @@ interface TaskInterface
     /**
      * Find when new task should start
      *
-     * @param  int      $hoursToAllocate
      * @return DateTime
      */
-    public function findGapForNewTask($hoursToAllocate);
+    public function findGapForNewTask();
 
 }

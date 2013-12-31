@@ -52,7 +52,7 @@ Technologies:
 Goals (new elements may be added during coding):
 
 - [X] create simple skeleton app based on ZF2 and Doctrine
-- [X] create backend module that defines entities used by app and services for accessing them
+- [X] create core module that defines entities used by app and services for accessing them
     - [X] define internal data structures: tasks, timeline, etc. No need to take care of users for now.
     - [ ] write unit tests
 - [X] create control module that exposes services and entities and operates on data in JSON format
@@ -67,5 +67,5 @@ Goals (new elements may be added during coding):
     - [X] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
     - [X] start timeline with current week
     - [ ] allow selecting different dates (?)
-- [ ] support splitting work into 8-hour days, and 5-day weeks
+- [X] support splitting work into 8-hour days, and 5-day weeks
 - [ ] try not to drink too much coke during development

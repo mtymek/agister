@@ -35,9 +35,37 @@ class Task
         return $task;
     }
 
+    /**
+     * Find when given task can be started, and when it can be finished
+     *
+     * @param Entity\Task $task
+     */
     public function allocate(Entity\Task $task)
     {
-        $task->setStartsAt($this->repository->findGapForNewTask($task->getHoursMax()));
+        $startsAt = $this->repository->findGapForNewTask();
+
+        $remainingHours = $task->getHoursMax();
+        $current = clone $startsAt;
+        $current->setTime(0, 0, 0);
+
+        // note: we don't ever display exact hours. So we can safely assume that work
+        // always starts at 00:00. We use it to calculate hours remaining of first day
+        $hoursToDistribute = $this->getWorkingHours($startsAt) - $startsAt->format('H');
+
+        while (true) {
+            if ($remainingHours <= $hoursToDistribute) {
+                $current->setTime($remainingHours, 0, 0);
+                break;
+            }
+
+            $current->add(new DateInterval('P1D'));
+            $remainingHours -= $hoursToDistribute;
+            $hoursToDistribute = $this->getWorkingHours($current);
+        }
+
+        $task->setStartsAt($startsAt);
+        $task->setFinishesAtMax($current);
+        $task->setFinishesAtMin($current);
     }
 
     /**
@@ -50,10 +78,8 @@ class Task
         $dateTo = new DateTime('1970-01-01');
 
         foreach ($tasks as $task) {
-            $tmp = clone $task->getStartsAt();
-            $tmp->add(new DateInterval('PT' . $task->getHoursMax() . 'H'));
-            if ($dateTo < $tmp) {
-                $dateTo = $tmp;
+            if ($dateTo < $task->getFinishesAtMax()) {
+                $dateTo = clone $task->getFinishesAtMax();
             }
         }
 

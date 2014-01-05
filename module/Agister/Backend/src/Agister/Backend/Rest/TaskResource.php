@@ -6,6 +6,7 @@ use Agister\Core\Repository;
 use Agister\Core\Service;
 use Agister\Backend\InputFilter;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
+use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
 class TaskResource extends AbstractResourceListener
@@ -55,7 +56,9 @@ class TaskResource extends AbstractResourceListener
         $filter = $this->newTaskInputFilter;
         $filter->setData((array) $data);
         if (!$filter->isValid()) {
-            throw new \Exception("Invalid data!");
+            return new ApiProblem(409, 'Invalid data', null, null, array(
+                'messages' => $filter->getMessages(),
+            ));
         }
         $entity = $this->taskService->create();
         $this->hydrator->hydrate($filter->getValues(), $entity);
@@ -71,7 +74,9 @@ class TaskResource extends AbstractResourceListener
         $filter = $this->taskInputFilter;
         $filter->setData($data);
         if (!$filter->isValid()) {
-            throw new \Exception("Invalid data!");
+            return new ApiProblem(409, 'Invalid data', null, null, array(
+                'messages' => $filter->getMessages(),
+            ));
         }
         $entity = $this->repository->findById($id);
 

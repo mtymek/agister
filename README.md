@@ -5,6 +5,7 @@ Introduction
 ------------
 
 AGIster is a simple TODO management tool, presenting tasks in as "AGIs" - achievements, goals and issues.
+It was written as a playground to some interesting technologies like ZF-Rest, AngularJS and few others.
 
 Installation
 ------------
@@ -18,7 +19,7 @@ Agister requires [Bower](http://bower.io/) and INTL extension.
 
 2. Install PHP dependencies via composer:
 
-        ./composer install
+        ./composer installI
 
 3. Install JS dependencies using bower:
 
@@ -34,38 +35,3 @@ Agister requires [Bower](http://bower.io/) and INTL extension.
 5. Create initial schema:
 
         ./vendor/bin/doctrine-module orm:schema-tool:create
-
-
-Christmas Challenge
--------------------
-
-AGIster is supposed to be a short project, written to improve my coding skills and possibly learn something new.
-
-Technologies:
-
-* Zend Framework 2 as PHP framework
-* Doctrine 2 as database backend
-* ZF-REST module for API
-* Twitter Bootstrap as CSS framework
-* AngularJS as frontend framework
-
-Goals (new elements may be added during coding):
-
-- [X] create simple skeleton app based on ZF2 and Doctrine
-- [X] create core module that defines entities used by app and services for accessing them
-    - [X] define internal data structures: tasks, timeline, etc. No need to take care of users for now.
-    - [ ] write unit tests
-- [X] create control module that exposes services and entities and operates on data in JSON format
-    - [X] use ZF-Rest module for API
-    - [ ] write unit tests
-- [X] create frontend module (with help of AssetManager module)
-    - [X] use Bower for managing front-end packages
-    - [X] use Angular.js as frontend engine
-    - [X] allow adding new tasks
-    - [X] create "task details" view
-    - [X] allow marking tasks as "completed"
-    - [X] create simple timeline showing current tasks, something reassembling Liquid Planer's timeline
-    - [X] start timeline with current week
-    - [ ] allow selecting different dates (?)
-- [X] support splitting work into 8-hour days, and 5-day weeks
-- [ ] try not to drink too much coke during development

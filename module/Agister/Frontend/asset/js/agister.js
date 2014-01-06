@@ -23,13 +23,13 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
 
             var tasks = data._embedded.tasks;
 
-            var dateFrom = new Date('2050-01-01 00:00:00');
-            var dateTo = new Date(0);
+            var dateFrom = moment('2050-01-01 00:00:00');
+            var dateTo = moment(0);
 
             // find how tasks are spread on timeline
             for (var i in tasks) {
-                var start = new Date(tasks[i].startsAt.date);
-                var finish = new Date(tasks[i].finishesAtMax.date);
+                var start = moment(tasks[i].startsAt.date);
+                var finish = moment(tasks[i].finishesAtMax.date);
 
                 if (dateFrom > start) {
                     dateFrom = start;
@@ -39,24 +39,26 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
                 }
             }
 
-            var scale = 100 / (dateTo.getTime() - dateFrom.getTime());
+            dateFrom = angular.copy(dateFrom).day(-2);
+            dateTo = angular.copy(dateTo).day(8);
+
+            var scale = 100 / (dateTo.unix() - dateFrom.unix());
 
             for (var i in tasks) {
-                var start = new Date(tasks[i].startsAt.date);
-                var finish = new Date(tasks[i].finishesAtMax.date);
-                tasks[i].scaledStart = Math.round((start.getTime() - dateFrom.getTime())) * scale;
-                tasks[i].scaledWidth = Math.round((finish.getTime() - dateFrom.getTime())) * scale - tasks[i].scaledStart;
+                var start = moment(tasks[i].startsAt.date);
+                var finish = moment(tasks[i].finishesAtMax.date);
+                tasks[i].scaledStart = Math.round((start.unix() - dateFrom.unix())) * scale;
+                tasks[i].scaledWidth = Math.round((finish.unix() - dateFrom.unix())) * scale - tasks[i].scaledStart;
             }
 
             // date markers
             var dateMarkers = [];
-            for (var i = dateFrom.getTime(); i < dateTo.getTime(); i += 1000 * 3600 * 24) {
-                var d = new Date();
-                d.setTime(i);
+            for (var i = dateFrom.unix(); i < dateTo.unix(); i += 3600 * 24) {
+                var d = moment.unix(i);
                 dateMarkers.push({
-                    "seconds": Math.round((i - dateFrom.getTime()) / 1000),
+                    "seconds": Math.round((i - dateFrom.unix())),
                     "scale": scale,
-                    "date": d
+                    "date": d.format("D/M")
                 });
             }
 

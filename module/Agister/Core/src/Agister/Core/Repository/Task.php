@@ -31,17 +31,19 @@ class Task extends EntityRepository implements TaskInterface
      * Find all tasks that end after dateFrom
      *
      * @param  DateTime      $dateFrom
+     * @param  DateTime      $dateTo
      * @return Entity\Task[]
      */
-    public function findAllFromDate(DateTime $dateFrom)
+    public function findAllBetweenDates(DateTime $dateFrom, DateTime $dateTo)
     {
-        $query = "SELECT * FROM task t WHERE t.finishesAtMax >= :dateFrom";
+        $query = "SELECT * FROM task t WHERE t.finishesAtMax >= :dateFrom AND t.startsAt < :dateTo";
 
         $rsm = new ResultSetMappingBuilder($this->_em);
         $rsm->addRootEntityFromClassMetadata('Agister\Core\Entity\Task', 't');
 
         $query = $this->_em->createNativeQuery($query, $rsm);
-        $query->setParameter('dateFrom', $dateFrom->format('Y-m-d H:i:s'));
+        $query->setParameter('dateFrom', $dateFrom);
+        $query->setParameter('dateTo', $dateTo);
 
         return $query->getResult();
     }

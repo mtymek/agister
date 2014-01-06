@@ -36,9 +36,10 @@ interface TaskInterface
      * Find all tasks that end after dateFrom
      *
      * @param  DateTime      $dateFrom
+     * @param  DateTime      $dateTo
      * @return Entity\Task[]
      */
-    public function findAllFromDate(DateTime $dateFrom);
+    public function findAllBetweenDates(DateTime $dateFrom, DateTime $dateTo);
 
     /**
      * Find when new task should start

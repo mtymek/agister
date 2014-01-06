@@ -15,14 +15,14 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                 <td>
                     <div class="legend-wrapper">
                         <div class="date-marker"
-                             style="left: {{ date.seconds * timeline.scale*0.95 }}%"
-                             ng-repeat="date in timeline.dateMarkers">
-                            {{ date.date.getDate() }} / {{ date.edate.getMonth()+1 }}
+                             style="left: {{ date.seconds * date.scale * 1000 * 0.95 }}%"
+                             ng-repeat="date in dateMarkers">
+                            {{ date.date.getDate() }} / {{ date.date.getMonth()+1 }}
                         </div>
                     </div>
                 </td>
             </tr>
-            <tr ng-repeat="task in timeline.tasks">
+            <tr ng-repeat="task in tasks">
                 <td class="title" ng-click="loadTaskDetails(task.id)">
                     {{ task.title }}
                 </td>
@@ -35,7 +35,7 @@ $this->headLink()->appendStylesheet($this->basePath('css/agister.css'));
                     </div>
                 </td>
             </tr>
-            <tr ng-hide="timeline.tasks.length">
+            <tr ng-hide="tasks.length">
                 <td colspan="2">
                     <em>Task list is empty. Add new tasks using form above.</em>
                 </td>

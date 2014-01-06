@@ -13,22 +13,39 @@ var agisterModule = angular.module('agister', []);
 
 agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
 
-    var apiUrl = basePathHelper('/api/timeline/1');
+    var apiUrl = basePathHelper('/api/tasks');
     return {
         "loadInto": loadInto
     }
 
     function loadInto($scope) {
         $http.get(apiUrl).success(function (data) {
-            var dateFrom = new Date(data.dateFrom);
-            var dateTo = new Date(data.dateTo);
 
-            for (var i in data.tasks) {
-                var st = new Date(data.tasks[i].startsAt.date);
-                var fin = new Date(data.tasks[i].finishesAtMax.date);
-                console.dir(data);
-                data.tasks[i].scaledStart = Math.round((st.getTime() - dateFrom.getTime())/ 1000) * data.scale;
-                data.tasks[i].scaledWidth = Math.round((fin.getTime() - dateFrom.getTime())/ 1000) * data.scale - data.tasks[i].scaledStart;
+            var tasks = data._embedded.tasks;
+
+            var dateFrom = new Date('2050-01-01 00:00:00');
+            var dateTo = new Date(0);
+
+            // find how tasks are spread on timeline
+            for (var i in tasks) {
+                var start = new Date(tasks[i].startsAt.date);
+                var finish = new Date(tasks[i].finishesAtMax.date);
+
+                if (dateFrom > start) {
+                    dateFrom = start;
+                }
+                if (dateTo < finish) {
+                    dateTo = finish;
+                }
+            }
+
+            var scale = 100 / (dateTo.getTime() - dateFrom.getTime());
+
+            for (var i in tasks) {
+                var start = new Date(tasks[i].startsAt.date);
+                var finish = new Date(tasks[i].finishesAtMax.date);
+                tasks[i].scaledStart = Math.round((start.getTime() - dateFrom.getTime())) * scale;
+                tasks[i].scaledWidth = Math.round((finish.getTime() - dateFrom.getTime())) * scale - tasks[i].scaledStart;
             }
 
             // date markers
@@ -38,12 +55,13 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
                 d.setTime(i);
                 dateMarkers.push({
                     "seconds": Math.round((i - dateFrom.getTime()) / 1000),
+                    "scale": scale,
                     "date": d
                 });
             }
 
-            $scope.timeline = data;
-            $scope.timeline.dateMarkers = dateMarkers;
+            $scope.tasks = tasks;
+            $scope.dateMarkers = dateMarkers;
         })
     }
 }]);

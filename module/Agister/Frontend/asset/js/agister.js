@@ -19,10 +19,9 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
     }
 
     function loadInto($scope) {
-        $http.get(apiUrl).success(function (data) {
+        $http.get(apiUrl + '?dateFrom=' + encodeURIComponent($scope.dateFrom.format('YYYY-MM-DD HH:mm:ss'))).success(function (data) {
 
             var tasks = data._embedded.tasks;
-
             var dateFrom = moment('2050-01-01 00:00:00');
             var dateTo = moment(0);
 
@@ -39,7 +38,7 @@ agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
                 }
             }
 
-            dateFrom = angular.copy(dateFrom).day(-2);
+            dateFrom = angular.copy(dateFrom).day(1);
             dateTo = angular.copy(dateTo).day(8);
 
             var scale = 100 / (dateTo.unix() - dateFrom.unix());
@@ -73,6 +72,7 @@ agisterModule.controller('AgisterDashboardController',
 
         $scope.addTaskFormVisible = false;
         $scope.taskDetailsVisible = false;
+        $scope.dateFrom = moment().day(1).hours(0).minutes(0).seconds(0);
 
         var task = {
             "title": "",

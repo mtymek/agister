@@ -13,37 +13,57 @@ var agisterModule = angular.module('agister', []);
 
 agisterModule.factory('$agisterTimeline', ['$http', function ($http) {
 
-    var apiUrl = basePathHelper('/api/timeline/1');
+    var apiUrl = basePathHelper('/api/tasks');
     return {
         "loadInto": loadInto
     }
 
     function loadInto($scope) {
         $http.get(apiUrl).success(function (data) {
-            var dateFrom = new Date(data.dateFrom);
-            var dateTo = new Date(data.dateTo);
 
-            for (var i in data.tasks) {
-                var st = new Date(data.tasks[i].startsAt.date);
-                var fin = new Date(data.tasks[i].finishesAtMax.date);
-                console.dir(data);
-                data.tasks[i].scaledStart = Math.round((st.getTime() - dateFrom.getTime())/ 1000) * data.scale;
-                data.tasks[i].scaledWidth = Math.round((fin.getTime() - dateFrom.getTime())/ 1000) * data.scale - data.tasks[i].scaledStart;
+            var tasks = data._embedded.tasks;
+
+            var dateFrom = moment('2050-01-01 00:00:00');
+            var dateTo = moment(0);
+
+            // find how tasks are spread on timeline
+            for (var i in tasks) {
+                var start = moment(tasks[i].startsAt.date);
+                var finish = moment(tasks[i].finishesAtMax.date);
+
+                if (dateFrom > start) {
+                    dateFrom = start;
+                }
+                if (dateTo < finish) {
+                    dateTo = finish;
+                }
+            }
+
+            dateFrom = angular.copy(dateFrom).day(-2);
+            dateTo = angular.copy(dateTo).day(8);
+
+            var scale = 100 / (dateTo.unix() - dateFrom.unix());
+
+            for (var i in tasks) {
+                var start = moment(tasks[i].startsAt.date);
+                var finish = moment(tasks[i].finishesAtMax.date);
+                tasks[i].scaledStart = Math.round((start.unix() - dateFrom.unix())) * scale;
+                tasks[i].scaledWidth = Math.round((finish.unix() - dateFrom.unix())) * scale - tasks[i].scaledStart;
             }
 
             // date markers
             var dateMarkers = [];
-            for (var i = dateFrom.getTime(); i < dateTo.getTime(); i += 1000 * 3600 * 24) {
-                var d = new Date();
-                d.setTime(i);
+            for (var i = dateFrom.unix(); i < dateTo.unix(); i += 3600 * 24) {
+                var d = moment.unix(i);
                 dateMarkers.push({
-                    "seconds": Math.round((i - dateFrom.getTime()) / 1000),
-                    "date": d
+                    "seconds": Math.round((i - dateFrom.unix())),
+                    "scale": scale,
+                    "date": d.format("D/M")
                 });
             }
 
-            $scope.timeline = data;
-            $scope.timeline.dateMarkers = dateMarkers;
+            $scope.tasks = tasks;
+            $scope.dateMarkers = dateMarkers;
         })
     }
 }]);

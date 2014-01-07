@@ -5,6 +5,7 @@ namespace Agister\Backend\Rest;
 use Agister\Core\Repository;
 use Agister\Core\Service;
 use Agister\Backend\InputFilter;
+use DateTime;
 use DoctrineModule\Stdlib\Hydrator\DoctrineObject;
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
@@ -95,9 +96,12 @@ class TaskResource extends AbstractResourceListener
         return $this->hydrator->extract($this->repository->findById($id));
     }
 
-    public function fetchAll($data = array())
+    public function fetchAll($params = array())
     {
-        $collection = $this->repository->findAll();
+        $dateFrom = isset($params['dateFrom'])?new DateTime($params['dateFrom']):new DateTime('1970-01-01 00:00:00');
+        $dateTo = isset($params['dateTo'])?new DateTime($params['dateTo']):new DateTime('2050-01-01 00:00:00');
+
+        $collection = $this->repository->findAllBetweenDates($dateFrom, $dateTo);
         $ret = array();
         foreach ($collection as $entity) {
             $ret[] = $this->hydrator->extract($entity);

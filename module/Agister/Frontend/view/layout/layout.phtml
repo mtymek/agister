@@ -40,14 +40,15 @@
                     <li><a href="#">Reports</a></li>
                 </ul>
                 <div class="add-task-wrapper">
-                    <form class="navbar-form navbar-left" action="">
-                        <div class="form-group">
+                    <form class="navbar-form navbar-left" action="" name="addTaskForm">
+                        <div class="form-group" ng-class="{'has-error': addTaskForm.title.$dirty && addTaskForm.title.$invalid}">
                             <input class="form-control"
                                    type="text"
-                                   name="task-title"
+                                   name="title"
                                    placeholder="Type to add new task"
                                    ng-focus="addTaskFormVisible = true"
                                    ng-model="newTask.title"
+                                   required
                                 />
                         </div>
                     </form>

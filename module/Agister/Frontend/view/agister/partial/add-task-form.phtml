@@ -1,10 +1,10 @@
 <div class="add-task-form">
 
-    <form class="form-horizontal" role="form">
-        <div class="form-group">
+    <form class="form-horizontal" role="form" name="addTaskExtForm">
+        <div class="form-group" ng-class="{'has-error': addTaskExtForm.hours_max.$dirty && addTaskExtForm.hours_max.$invalid}">
             <label class="col-sm-3 control-label" for="hours_max">Est. time</label>
             <div class="col-sm-4">
-                <input type="text" name="hours_max" class="form-control" ng-model="newTask.hoursMax" value="">
+                <input type="text" name="hours_max" class="form-control" ng-model="newTask.hoursMax" value="" required>
             </div>
         </div>
 
